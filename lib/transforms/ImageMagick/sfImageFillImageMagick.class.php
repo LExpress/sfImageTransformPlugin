@@ -225,7 +225,7 @@ class sfImageFillImageMagick extends sfImageTransformAbstract
     $border = new ImagickPixel();
     $border->setColor($this->border);
 
-    $resource->colorFloodfillImage($fill, $this->fuzz, $border, $this->x, $this->y);
+    $resource->paintFloodfillImage($fill, $this->fuzz, $border, $this->x, $this->y);
 
     return $image;
   }
