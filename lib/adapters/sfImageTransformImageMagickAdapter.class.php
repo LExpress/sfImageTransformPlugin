@@ -112,12 +112,12 @@ class sfImageTransformImageMagickAdapter extends sfImageTransformAdapterAbstract
    *
    * @throws sfImageTransformException
    */
-  
+
    public function loadString($string)
 	{
     return $this->getHolder()->readImageBlob($string);;
 	 }
- 
+
   /**
    * Get the image as string
    *
@@ -170,7 +170,16 @@ class sfImageTransformImageMagickAdapter extends sfImageTransformAdapterAbstract
   {
     $copyObj = clone $this;
 
-    $copyObj->setHolder(clone $this->getHolder());
+    $extension = new ReflectionExtension('imagick');
+
+    if (version_compare($extension->getVersion(), '3.0.1', '>'))
+    {
+      $copyObj->setHolder(clone $this->getHolder());
+    }
+    else
+    {
+      $copyObj->setHolder($this->getHolder()->clone());
+    }
 
     return $copyObj;
   }
